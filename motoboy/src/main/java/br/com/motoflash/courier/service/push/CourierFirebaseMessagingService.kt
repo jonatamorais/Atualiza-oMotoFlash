@@ -23,9 +23,9 @@ import com.google.gson.Gson
 class CourierFirebaseMessagingService : FirebaseMessagingService() {
     // [START receive_message]
     override fun onMessageReceived(message: RemoteMessage) {
-        Log.d(TAG, "New Message: ${Gson().toJson(message.data)}")
+       // Log.d(TAG, "New Message: ${Gson().toJson(message.data)}")
         if(message.data.containsKey("workOrderId")){
-            Log.d(TAG, "start")
+          //  Log.d(TAG, "start")
             startActivity(AlertActivity.start(
                 context = this,
                 workOrderId = message.data["workOrderId"].toString(),

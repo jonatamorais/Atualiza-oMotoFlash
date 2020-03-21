@@ -264,7 +264,7 @@ class AlertActivity : BaseActivity(), AlertMvpView {
 
         txtPrice.visibility = View.GONE
         if (workOrder.quotation?.price != null) {
-            txtPrice.visibility = View.VISIBLE
+            txtPrice.visibility = View.GONE // updated from VISIBLE to GONE date 21/2020
             txtPrice.text = NumberFormat.getCurrencyInstance().format(workOrder.quotation?.price ?: 0.0)
         }
         txtBonus.visibility = View.GONE
@@ -279,7 +279,7 @@ class AlertActivity : BaseActivity(), AlertMvpView {
             points[points.size - 1].address!!.neighborhood
         )
         if (points[0].address!!.neighborhood != null)
-            txtAddress.visibility = View.VISIBLE
+            txtAddress.visibility = View.GONE // updated from VISIBLE to GONE date 21/2020
         else
             txtAddress.visibility = View.GONE
 

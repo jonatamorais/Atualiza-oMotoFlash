@@ -16,7 +16,7 @@ android {
         config {
             keyAlias 'motoflash'
             keyPassword 'Motoflash2112@'
-            storeFile file('G:/Desenvolvimento/BitBucket/Motoflash/motoflash.jks')
+            storeFile file('../app/motoflash.jks')
             storePassword 'Motoflash2112@'
         }
     }
