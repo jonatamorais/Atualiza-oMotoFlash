@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundLight"
+    android:id="@+id/container"
+    tools:context=".ui.login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/motoflash_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="MotoFlash"
+        android:textColor="@color/colorPurple"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <LinearLayout
+        android:id="@+id/containerLoginFields"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_cornes_gray_light"
+            android:paddingTop="10dp"
+            android:textColorHint="@color/colorPurpleLight">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/transparent"
+                android:hint="E-mail"
+                android:inputType="textWebEmailAddress"
+                android:padding="2dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/colorPurple"
+                android:textColorHint="@color/colorPurpleLight" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_cornes_gray_light"
+            android:paddingTop="10dp"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:textColorHint="@color/colorPurpleLight"
+            android:visibility="gone"
+            app:passwordToggleEnabled="true"
+            tools:scaleX="1"
+            tools:scaleY="1"
+            tools:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/transparent"
+                android:hint="Senha"
+                android:inputType="textPassword"
+                android:padding="2dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/colorPurple"
+                android:textColorHint="@color/colorPurpleLight" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_cornes_gray_light"
+            android:paddingTop="10dp"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:textColorHint="@color/colorPurpleLight"
+            android:visibility="gone"
+            app:passwordToggleEnabled="true"
+            tools:scaleX="1"
+            tools:scaleY="1"
+            tools:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPasswordConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/transparent"
+                android:hint="Confirme a Senha"
+                android:inputType="textPassword"
+                android:padding="2dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/colorPurple"
+                android:textColorHint="@color/colorPurpleLight" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_cornes_gray_light"
+            android:paddingTop="10dp"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:textColorHint="@color/colorPurpleLight"
+            android:visibility="gone"
+            tools:scaleX="1"
+            tools:scaleY="1"
+            tools:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/transparent"
+                android:hint="Nome"
+                android:inputType="textPersonName"
+                android:padding="2dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/colorPurple"
+                android:textColorHint="@color/colorPurpleLight" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_cornes_gray_light"
+            android:paddingTop="10dp"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:textColorHint="@color/colorPurpleLight"
+            android:visibility="gone"
+            tools:scaleX="1"
+            tools:scaleY="1"
+            tools:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtMobilePhone"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/transparent"
+                android:hint="Celular"
+                android:inputType="number"
+                android:maxLength="15"
+                android:padding="2dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/colorPurple"
+                android:textColorHint="@color/colorPurpleLight" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnNext"
+            style="@style/ColoredButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Enviar"
+            android:textAllCaps="false"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

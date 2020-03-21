@@ -1,0 +1,220 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+//Kotlin Annotation Processing (KAPT) plugin
+apply plugin: 'kotlin-kapt'
+
+//Realm
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 29
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", "\"https://us-central1-motoflash-a2f12.cloudfunctions.net\"")
+        }
+        debug {
+            debuggable true
+            buildConfigField("String", "BASE_URL", "\"https://us-central1-motoflash-a2f12.cloudfunctions.net\"")
+        }
+    }
+
+    repositories {
+        maven { url "https://dl.bintray.com/algolia/maven" }
+        maven { url  "http://dl.bintray.com/piasy/maven" }
+    }
+    packagingOptions {
+        exclude 'META-INF/ktor-client-serialization.kotlin_module'
+        exclude 'META-INF/ktor-http.kotlin_module'
+        exclude 'META-INF/kotlinx-io.kotlin_module'
+        exclude 'META-INF/atomicfu.kotlin_module'
+        exclude 'META-INF/kotlinx-serialization-runtime.kotlin_module'
+        exclude 'META-INF/ktor-utils.kotlin_module'
+        exclude 'META-INF/kotlinx-coroutines-io.kotlin_module'
+        exclude 'META-INF/kotlinx-coroutines-core.kotlin_module'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ktor-http-cio.kotlin_module'
+        exclude 'META-INF/ktor-client-json.kotlin_module'
+        exclude 'META-INF/ktor-client-logging.kotlin_module'
+        exclude 'META-INF/ktor-client-core.kotlin_module'
+        exclude 'META-INF/MANIFEST.MF'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    //Firebase
+    api 'com.google.firebase:firebase-core:17.2.0'
+    api 'com.google.firebase:firebase-firestore:21.1.0'
+    api 'com.google.firebase:firebase-storage:19.0.1'
+    api 'com.google.firebase:firebase-auth:19.0.0'
+    api 'com.google.firebase:firebase-database:19.1.0'
+    api 'com.google.firebase:firebase-messaging:20.0.0'
+    api 'com.google.firebase:firebase-functions:19.0.1'
+    api 'com.google.firebase:firebase-inappmessaging-display:19.0.0'
+    api 'com.google.firebase:firebase-analytics:17.2.0'
+    api 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    api 'com.google.firebase:firebase-perf:19.0.2'
+
+    //Admin
+//    implementation 'com.google.firebase:firebase-admin:6.10.0'
+
+    //FirebaseUI
+    api 'com.firebaseui:firebase-ui-auth:5.1.0'
+    api 'com.firebaseui:firebase-ui-firestore:5.1.0'
+
+    //Paging
+    api "androidx.paging:paging-runtime:2.1.0"
+
+    //Timber
+    api 'com.jakewharton.timber:timber:4.7.1'
+
+    //Gson
+    api 'com.google.code.gson:gson:2.8.5'
+
+
+    //Injection
+    api "com.google.dagger:dagger:2.19"
+    api "com.google.dagger:dagger-android:2.19"
+    api "com.google.dagger:dagger-android-support:2.19"
+    kapt "com.google.dagger:dagger-compiler:2.19"
+    kapt "com.google.dagger:dagger-android-processor:2.19"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.19"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+    api 'javax.inject:javax.inject:1'
+
+    //AndroidX
+    api 'androidx.recyclerview:recyclerview:1.0.0'
+    api 'androidx.cardview:cardview:1.0.0'
+
+    //Material
+    api 'com.google.android.material:material:1.0.0'
+
+    //Glide
+    api 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    //Nav
+    api 'com.etebarian:meow-bottom-navigation:1.0.4'
+
+    //Dialogflow
+//    api 'ai.api:sdk:2.0.7'
+
+    //Maps
+    api 'com.google.android.gms:play-services-maps:17.0.0'
+    api 'com.google.android.gms:play-services-location:17.0.0'
+    api 'com.google.android.libraries.places:places:2.0.0'
+    api 'com.google.maps.android:android-maps-utils:0.5'
+
+    //Loading
+    api 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    //Retrofit
+    api "com.squareup.retrofit2:retrofit:2.4.0"
+    api "com.squareup.retrofit2:converter-gson:2.4.0"
+    api "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
+    api "com.squareup.okhttp3:logging-interceptor:3.9.0"
+    api "com.amitshekhar.android:rx2-android-networking:1.0.1"
+
+    //RXJAVA
+    api 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    api "io.reactivex.rxjava2:rxjava:2.2.0"
+    api 'com.artemzin.rxjava:proguard-rules:1.0.14.2'
+    api "io.reactivex.rxjava2:rxandroid:2.1.0"
+    api "io.reactivex.rxjava2:rxkotlin:2.2.0"
+    api "com.trello.rxlifecycle2:rxlifecycle:2.2.0"
+    api "com.trello.rxlifecycle2:rxlifecycle-components:2.2.0"
+    api "com.github.tbruyelle:rxpermissions:0.10.2"
+
+    //CreditCard
+    api "io.card:android-sdk:5.4.0"
+
+    //Shape
+    api 'com.github.florent37:shapeofview:1.4.7'
+
+    //Dashed
+    api 'com.xfinity:dahdit:0.9.3'
+
+    //Slide
+    api 'io.github.dreierf:material-intro-screen:0.0.6'
+    kaptAndroidTest 'androidx.databinding:databinding-compiler:3.5.0'
+
+    //Airbnb
+    api "com.airbnb.android:lottie:3.0.7"
+
+    //Hawk
+    //api "com.orhanobut:hawk:2.0.1"
+
+    //Easyprefs
+    api 'com.pixplicity.easyprefs:library:1.9.0'
+
+    //MapUtils
+    api 'com.google.maps.android:android-maps-utils:0.5+'
+
+    //GeoHash
+    api 'com.github.drfonfon:android-kotlin-geohash:1.0'
+
+    //Algolia
+//    api "com.algolia:algoliasearch-client-kotlin-jvm:$kotlin_client_version"
+//    // Choose one of the following http client
+//    api "io.ktor:ktor-client-apache:$ktor_version"
+//    api "io.ktor:ktor-client-okhttp:$ktor_version"
+//    api "io.ktor:ktor-client-android:$ktor_version"
+//    api "io.ktor:ktor-client-cio:$ktor_version"
+//    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
+//    api "io.ktor:ktor-client-jetty:$ktor_version"
+
+
+    //Car Animation
+    api 'com.github.tintinscorpion:CarMarker-Animation:1.1'
+
+    //CustomCircleMarker
+    api 'de.hdodenhof:circleimageview:2.1.0'
+
+    //RingProgress
+    api 'com.timqi.sectorprogressview:library:2.0.1'
+
+    //SQLite
+    api 'io.requery:requery:1.6.1'
+    api 'io.requery:requery-kotlin:1.6.1'
+    api 'io.requery:requery-android:1.6.1'
+    kapt 'io.requery:requery-processor:1.6.1'
+
+    //Anko
+    api "org.jetbrains.anko:anko:0.10.8"
+    api "org.jetbrains.anko:anko-commons:0.10.8"
+
+    //ImagePicker
+    api 'com.asksira.android:bsimagepicker:1.2.2'
+
+    //ImagePicker
+    api 'com.github.esafirm.android-image-picker:imagepicker:2.2.0'
+    api 'com.github.esafirm.android-image-picker:rximagepicker:2.2.0'
+}

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    tools:context=".ui.profile.ProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:animateLayoutChanges="true">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="2dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_camera"
+                    android:tint="@color/colorBlue"
+                    app:layout_constraintBottom_toBottomOf="@+id/ringRelevance"
+                    app:layout_constraintEnd_toEndOf="@+id/ringRelevance"
+                    app:layout_constraintStart_toStartOf="@+id/ringRelevance"
+                    app:layout_constraintTop_toTopOf="@+id/ringRelevance" />
+
+                <ImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="20dp"
+                    app:layout_constraintEnd_toEndOf="@+id/ringRelevance"
+                    app:layout_constraintBottom_toBottomOf="@+id/ringRelevance"
+                    app:layout_constraintStart_toStartOf="@+id/ringRelevance"
+                    app:layout_constraintTop_toTopOf="@+id/ringRelevance"/>
+
+                <com.timqi.sectorprogressview.ColorfulRingProgressView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ringRelevance"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    app:bgColor="#e1e1e1"
+                    app:fgColorEnd="@color/colorBlue"
+                    app:fgColorStart="@color/colorBlueDark"
+                    app:percent="70"
+                    app:startAngle="180"
+                    app:strokeWidth="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_ultra_large"
+                    android:textColor="@color/colorFontTitle"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/ringRelevance"/>
+
+
+                <TextView
+                    android:id="@+id/txtLabelOnline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Offline"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/switchOnline"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@+id/switchOnline"/>
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/switchOnline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="30dp"
+                    android:showText="false"
+                    android:checked="false"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLabelOnline"/>
+
+                <TextView
+                    android:id="@+id/txtLabelLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="24/10 09:21"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/imgLocation"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@+id/imgLocation"/>
+
+                <ImageView
+                    android:id="@+id/imgLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_location_on"
+                    android:tint="@color/colorBlue"
+                    app:layout_constraintBottom_toBottomOf="@+id/switchOnline"
+                    android:layout_marginStart="40dp"
+                    app:layout_constraintTop_toTopOf="@+id/switchOnline"
+                    app:layout_constraintStart_toStartOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:cardUseCompatPadding="true"
+            android:visibility="gone"
+            app:cardCornerRadius="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Expedição"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_size_medium"
+                    />
+
+                <TextView
+                    android:id="@+id/labelExp1"
+                    android:text="Um teste qualquer"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="10dp"
+            android:id="@+id/cardEquipment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Veículo"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_size_medium"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="match_parent"
+                        android:tint="@color/colorBlue"
+                        app:srcCompat="@drawable/scooter"/>
+
+                    <TextView
+                        android:id="@+id/labelVec"
+                        android:text="Adicione um veículo"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtSelectEquipments"
+                        android:padding="4dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:background="@drawable/rectangle_rounded_corners_transparent_with_strokes_blue_left"
+                        android:text="Selecionar um veículo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+
+                    <TextView
+                        android:id="@+id/txtAddEquipments"
+                        android:padding="4dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:text="Adicionar um veículo"
+                        android:background="@drawable/rectangle_rounded_corners_transparent_with_strokes_blue_right"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sobre"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_size_medium"
+                    />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="match_parent"
+                        android:tint="@color/colorBlue"
+                        app:srcCompat="@drawable/version"/>
+                    <TextView
+                        android:id="@+id/labelVersion"
+                        android:text=""
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="match_parent"
+                        android:tint="@color/colorBlue"
+                        app:srcCompat="@drawable/android"/>
+                    <TextView
+                        android:id="@+id/labelSystem"
+                        android:text=""
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/rectangle_slide_blue"
+            android:text="Sair"
+            android:textColor="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</FrameLayout>

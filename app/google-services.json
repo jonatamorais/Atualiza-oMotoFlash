@@ -1,0 +1,143 @@
+{
+  "project_info": {
+    "project_number": "779027327724",
+    "firebase_url": "https://motoflash-a2f12.firebaseio.com",
+    "project_id": "motoflash-a2f12",
+    "storage_bucket": "motoflash-a2f12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779027327724:android:0c00006dfcdfbd6dec53c9",
+        "android_client_info": {
+          "package_name": "br.com.motoflash.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779027327724-3rq9p8p5jr2lfeen918avbe6gg5514n7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.motoflash.client",
+            "certificate_hash": "22011794f428170dfb6c3dc1ef62ba79c6102c8e"
+          }
+        },
+        {
+          "client_id": "779027327724-oubhir5ub1ll5m0kk3qrivgprouqbmev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC0gZg9aiNWFfhTNyPraOhysVNVPtEji4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779027327724-oubhir5ub1ll5m0kk3qrivgprouqbmev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779027327724:android:4b5e16da0dce5e29ec53c9",
+        "android_client_info": {
+          "package_name": "br.com.motoflash.courier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779027327724-9rdfl0b3equlfj0ao7kjo1q6ig2ouh9u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.motoflash.courier",
+            "certificate_hash": "22011794f428170dfb6c3dc1ef62ba79c6102c8e"
+          }
+        },
+        {
+          "client_id": "779027327724-oubhir5ub1ll5m0kk3qrivgprouqbmev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC0gZg9aiNWFfhTNyPraOhysVNVPtEji4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779027327724-oubhir5ub1ll5m0kk3qrivgprouqbmev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779027327724:android:91be195a5a6d5343ec53c9",
+        "android_client_info": {
+          "package_name": "com.motoflash.appmotorista"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779027327724-oubhir5ub1ll5m0kk3qrivgprouqbmev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC0gZg9aiNWFfhTNyPraOhysVNVPtEji4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779027327724-oubhir5ub1ll5m0kk3qrivgprouqbmev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779027327724:android:7e378bd88fa98bfaec53c9",
+        "android_client_info": {
+          "package_name": "com.motoflash.appusuario"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779027327724-oubhir5ub1ll5m0kk3qrivgprouqbmev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC0gZg9aiNWFfhTNyPraOhysVNVPtEji4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779027327724-oubhir5ub1ll5m0kk3qrivgprouqbmev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

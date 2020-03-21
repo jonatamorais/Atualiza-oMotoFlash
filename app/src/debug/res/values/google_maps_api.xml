@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=22:01:17:94:F4:28:17:0D:FB:6C:3D:C1:EF:62:BA:79:C6:10:2C:8E%3Bbr.com.motoflash.client
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    22:01:17:94:F4:28:17:0D:FB:6C:3D:C1:EF:62:BA:79:C6:10:2C:8E
+
+    SHA-1 certificate fingerprint:
+    22:01:17:94:F4:28:17:0D:FB:6C:3D:C1:EF:62:BA:79:C6:10:2C:8E
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAC0gZg9aiNWFfhTNyPraOhysVNVPtEji4</string>
+</resources>

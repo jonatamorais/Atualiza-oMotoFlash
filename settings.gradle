@@ -1,0 +1,2 @@
+include ':app', ':core', ':courier', ':courier', ':motoboy'
+rootProject.name='Motoflash'

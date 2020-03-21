@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">core</string>
+
+    <!--Request Label-->
+    <string name="labelPending">Buscando Profissional</string>
+    <string name="labelAssigned">Profissional Encontrado</string>
+    <string name="labelExecution">Profissional Executando</string>
+    <string name="labelCanceled">Pedido Cancelado</string>
+    <string name="labelFinished">Pedido Finalizado</string>
+
+    <!--Request Text-->
+    <string name="textPending">Buscando o melhor profissional para atender você</string>
+    <string name="textAssigned">Encontramos um profissional para seu pedido</string>
+    <string name="textExecution">O profissional está executando seu pedido</string>
+    <string name="textCanceled">Seu pedido foi cancelado</string>
+    <string name="textFinished">Seu pedido foi finalizado</string>
+
+    <string name="default_notification_channel_id">Motoflash Notifications</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PurpleText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPurple</item>
+    </style>
+    <style name="BlueText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorBlue</item>
+    </style>
+    <style name="WhiteText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+</resources>

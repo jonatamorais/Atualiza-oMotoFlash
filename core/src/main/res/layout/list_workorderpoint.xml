@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/txtSequence"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="1"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/circle_gray_light"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@+id/txtAddress"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="14sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/colorGray"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:text="Rua da Glória, 314"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/colorGreen"
+        android:src="@drawable/ic_pin"/>
+
+</LinearLayout>
