@@ -46,7 +46,7 @@ class HomeFragment : BaseFragment(), HomeMvpView {
 
     private val adapter = WorkOrderAdapter(
         list = list,
-        callback = object: WorkOrderAdapter.OnWorkOrderCallback{
+        callback = object : WorkOrderAdapter.OnWorkOrderCallback {
             override fun onWorkOrderClick(workOrder: WorkOrder) {
 
             }
@@ -99,7 +99,12 @@ class HomeFragment : BaseFragment(), HomeMvpView {
             val padding = CommonsUtil.getPx(context!!, 20f).toInt()
             val positions = intArrayOf(0, 0)
             topCardView.getLocationOnScreen(positions)
-            googleMap.setPadding(padding, CommonsUtil.getPx(context!!, 150f).toInt(), padding, padding)
+            googleMap.setPadding(
+                padding,
+                CommonsUtil.getPx(context!!, 150f).toInt(),
+                padding,
+                padding
+            )
 
             log("getMapAsync")
 
@@ -111,15 +116,20 @@ class HomeFragment : BaseFragment(), HomeMvpView {
                 log("setOnMapLoadedCallback")
 //                loaderMaps?.visibility = View.GONE
                 load = true
-                Timer("delay").schedule(1000L){
+                Timer("delay").schedule(1000L) {
                     activity!!.runOnUiThread {
-                        if(list.isNotEmpty())
+                        if (list.isNotEmpty())
                             boundMap(true, list[0])
                     }
                 }
             }
 
-            googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context!!, R.raw.mapstyle_silver))
+            googleMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    context!!,
+                    R.raw.mapstyle_silver
+                )
+            )
         }
     }
 
@@ -132,31 +142,42 @@ class HomeFragment : BaseFragment(), HomeMvpView {
         containerWorkOrder.visibility = View.VISIBLE
 
         btnAction.visibility = View.VISIBLE
-        if(workOrder.points!!.filter { it.status != WorkOrderPoint.Status.PENDING.name }.isEmpty() && workOrder.status == WorkOrder.Status.ASSIGNED.name){
+        if (workOrder.points!!.filter { it.status != WorkOrderPoint.Status.PENDING.name }
+                .isEmpty() && workOrder.status == WorkOrder.Status.ASSIGNED.name) {
             btnAction.text = "Inicie o pedido!"
             btnAction.setOnClickListener {
                 showLoading()
                 presenter.doStartWorkOrder(workOrder.courierId!!, workOrder.id!!, workOrder)
             }
-        }
-        else{
-            if(workOrder.points!!.filter { it.status == WorkOrderPoint.Status.STARTED.name }.isEmpty()){
+        } else {
+            if (workOrder.points!!.filter { it.status == WorkOrderPoint.Status.STARTED.name }
+                    .isEmpty()) {
                 btnAction.text = "Inicie o ponto!"
                 btnAction.setOnClickListener {
                     showLoading()
-                    presenter.doStartPoint(workOrder.courierId!!, workOrder.id!!, workOrder.points!!.first { it.status == WorkOrderPoint.Status.PENDING.name }.id!!, workOrder)
+                    presenter.doStartPoint(
+                        workOrder.courierId!!,
+                        workOrder.id!!,
+                        workOrder.points!!.first { it.status == WorkOrderPoint.Status.PENDING.name }.id!!,
+                        workOrder
+                    )
                 }
-            }else{
+            } else {
                 btnAction.text = "Finalize o ponto!"
                 btnAction.setOnClickListener {
                     showLoading()
-                    presenter.doFinishPoint(workOrder.courierId!!, workOrder.id!!, workOrder.points!!.first { it.status == WorkOrderPoint.Status.STARTED.name }.id!!, workOrder)
+                    presenter.doFinishPoint(
+                        workOrder.courierId!!,
+                        workOrder.id!!,
+                        workOrder.points!!.first { it.status == WorkOrderPoint.Status.STARTED.name }.id!!,
+                        workOrder
+                    )
                 }
             }
         }
 
-        if(load && context != null)
-        boundMap(false, workOrder)
+        if (load && context != null)
+            boundMap(false, workOrder)
     }
 
     override fun onStartWorkOrder() {
@@ -181,9 +202,9 @@ class HomeFragment : BaseFragment(), HomeMvpView {
 
     override fun onFinishPoint(lastPoint: Boolean) {
         hideLoading()
-        if(!lastPoint)
-        "Ponto Finalizado!".showSnack(container, backgroundColor = R.color.colorBlue)
-        else{
+        if (!lastPoint)
+            "Ponto Finalizado!".showSnack(container, backgroundColor = R.color.colorBlue)
+        else {
             "Pedido Finalizado!".showSnack(container, backgroundColor = R.color.colorBlue)
             containerWorkOrder.visibility = View.GONE
             txtEmpty.visibility = View.VISIBLE
@@ -213,19 +234,19 @@ class HomeFragment : BaseFragment(), HomeMvpView {
         presenter.onDetach()
     }
 
-    private fun boundMap(move: Boolean, workOrder: WorkOrder){
+    private fun boundMap(move: Boolean, workOrder: WorkOrder) {
         val iconFactory = IconGenerator(context!!)
         iconFactory.setColor(ContextCompat.getColor(context!!, R.color.colorWhite))
         iconFactory.setTextAppearance(R.style.BlueText)
 
         clearMarkers()
 
-        if(workOrder.points!!.filter { it.address != null }.size >= 2){
+        if (workOrder.points!!.filter { it.address != null }.size >= 2) {
             var builder = LatLngBounds.Builder()
 
             for (point in workOrder.points!!) {
 
-                when(point.status){
+                when (point.status) {
                     WorkOrderPoint.Status.PENDING.name -> {
                         iconFactory.setColor(ContextCompat.getColor(context!!, R.color.colorWhite))
                         iconFactory.setTextAppearance(R.style.BlueText)
@@ -249,34 +270,40 @@ class HomeFragment : BaseFragment(), HomeMvpView {
                         )
                     )
                     .anchor(iconFactory.anchorU, iconFactory.anchorV)
-                    .position(LatLng(point.address?.location?.geopoint?.latitude ?: 0.0, point.address?.location?.geopoint?.longitude ?: 0.0))
+                    .position(
+                        LatLng(
+                            point.address?.location?.geopoint?.latitude ?: 0.0,
+                            point.address?.location?.geopoint?.longitude ?: 0.0
+                        )
+                    )
 
                 mRouteMarkerList.add(googleMap.addMarker(marker))
                 builder.include(marker.position)
             }
 
 
-                val marker = MarkerOptions()
-                marker.position(
-                    LatLng(
-                        workOrder.courier!!.location!!.geopoint!!.latitude,
-                        workOrder.courier!!.location!!.geopoint!!.longitude
-                    )
+            val marker = MarkerOptions()
+            marker.position(
+                LatLng(
+                    workOrder.courier!!.location!!.geopoint!!.latitude,
+                    workOrder.courier!!.location!!.geopoint!!.longitude
                 )
-                marker.title("Você")
-                marker.icon(
-                    bitmapDescriptorFromVector(
-                        context = context!!,
-                        vectorDrawableResourceId = R.drawable.helmet_2_24dp
-                    )
+            )
+            marker.title("Você")
+            marker.icon(
+                bitmapDescriptorFromVector(
+                    context = context!!,
+                    vectorDrawableResourceId = R.drawable.helmet_2_24dp
                 )
-                mRouteMarkerList.add(googleMap.addMarker(marker))
-                builder.include(marker.position)
+            )
+            mRouteMarkerList.add(googleMap.addMarker(marker))
+            builder.include(marker.position)
 
 
-            if(move){
+            if (move) {
                 val bounds = builder.build()
-                val padding = CommonsUtil.getPx(context!!, 100f) // offset from edges of the map in pixels
+                val padding =
+                    CommonsUtil.getPx(context!!, 100f) // offset from edges of the map in pixels
                 val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding.toInt())
                 googleMap.animateCamera(cameraUpdate, 2000, null)
             }
@@ -290,25 +317,37 @@ class HomeFragment : BaseFragment(), HomeMvpView {
         mRouteMarkerList.clear()
     }
 
-    private fun bitmapDescriptorFromVector(context: Context, @DrawableRes vectorDrawableResourceId: Int): BitmapDescriptor {
+    private fun bitmapDescriptorFromVector(
+        context: Context,
+        @DrawableRes vectorDrawableResourceId: Int
+    ): BitmapDescriptor {
         val background = ContextCompat.getDrawable(context, R.drawable.pin_white)!!
         background.setBounds(0, 0, background.intrinsicWidth, background.intrinsicHeight)
         val vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId)!!
-        vectorDrawable.setBounds(CommonsUtil.getPx(context, 12f).toInt(), CommonsUtil.getPx(context, 6f).toInt(), vectorDrawable.intrinsicWidth + CommonsUtil.getPx(context, 10f).toInt(), vectorDrawable.intrinsicHeight + CommonsUtil.getPx(context,  6f).toInt())
+        vectorDrawable.setBounds(
+            CommonsUtil.getPx(context, 12f).toInt(),
+            CommonsUtil.getPx(context, 6f).toInt(),
+            vectorDrawable.intrinsicWidth + CommonsUtil.getPx(context, 10f).toInt(),
+            vectorDrawable.intrinsicHeight + CommonsUtil.getPx(context, 6f).toInt()
+        )
 //    vectorDrawable.setBounds(40, 20, vectorDrawable.intrinsicWidth + 40, vectorDrawable.intrinsicHeight + 20)
-        val bitmap = Bitmap.createBitmap(background.intrinsicWidth, background.intrinsicHeight, Bitmap.Config.ARGB_8888)
-        val canvas =  Canvas(bitmap)
+        val bitmap = Bitmap.createBitmap(
+            background.intrinsicWidth,
+            background.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
         background.draw(canvas)
         vectorDrawable.draw(canvas)
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
-    private fun hideLoading(){
+    private fun hideLoading() {
         progress.visibility = View.GONE
         btnAction.visibility = View.VISIBLE
     }
 
-    private fun showLoading(){
+    private fun showLoading() {
         progress.visibility = View.VISIBLE
         btnAction.visibility = View.GONE
     }
