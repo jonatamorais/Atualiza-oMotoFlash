@@ -4,6 +4,7 @@ package br.com.motoflash.courier.ui.home
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.icu.util.ValueIterator
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -177,6 +178,7 @@ class HomeFragment : BaseFragment(), HomeMvpView {
             }
         }
 
+        btnCancell.visibility = View.VISIBLE
         btnCancell.setOnClickListener {
             showLoading()
             if (StringUtils.isNotEmpty(workOrder.id!!)) {
