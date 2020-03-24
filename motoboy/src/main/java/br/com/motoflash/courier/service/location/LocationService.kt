@@ -11,13 +11,16 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.location.Location
-import android.provider.Settings
 import android.os.Build
 import android.os.IBinder
+import android.provider.Settings
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import br.com.motoflash.core.ui.util.*
+import br.com.motoflash.core.ui.util.COURIER_ONLINE
+import br.com.motoflash.core.ui.util.CURRENT_WORK_ORDER
+import br.com.motoflash.core.ui.util.LAST_LOCATION
+import br.com.motoflash.core.ui.util.LAST_LOCATION_TIME
 import br.com.motoflash.courier.BuildConfig
 import br.com.motoflash.courier.R
 import br.com.motoflash.courier.ui.splash.SplashActivity
@@ -28,9 +31,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.pixplicity.easyprefs.library.Prefs
-import io.reactivex.disposables.CompositeDisposable
 
 
 class LocationService : Service() {
@@ -45,7 +46,7 @@ class LocationService : Service() {
     private val auth = FirebaseAuth.getInstance()
     private val user = auth.currentUser!!
     private val firestore = FirebaseFirestore.getInstance()
-    private var workOrderRef : DocumentReference? = null
+    private var workOrderRef: DocumentReference? = null
     private val courierRef = firestore.collection("couriers").document(user.uid)
 
     override fun onBind(intent: Intent): IBinder? = null
@@ -66,7 +67,8 @@ class LocationService : Service() {
 
         registerReceiver(openReceiver, IntentFilter(open))
         val broadcastIntent = PendingIntent.getBroadcast(
-            this, 0, Intent(open), PendingIntent.FLAG_UPDATE_CURRENT)
+            this, 0, Intent(open), PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
 
         val CHANNEL_ID = "03"// The id of the channel.
@@ -76,10 +78,10 @@ class LocationService : Service() {
             .setContentIntent(broadcastIntent)
             .setSmallIcon(R.drawable.motoflash_logo_blue)
 
-        if(start){
+        if (start) {
             builder.setOngoing(true)
             builder.setContentText("Você está online")
-        }else
+        } else
             builder.setContentText("Serviço de localização parou")
 
         builder.color = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -89,7 +91,7 @@ class LocationService : Service() {
 
         mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Motoflash para Entregadores"// The user-visible name of the channel.
             val importance = NotificationManager.IMPORTANCE_HIGH
             val mChannel = NotificationChannel(CHANNEL_ID, name, importance)
@@ -104,7 +106,7 @@ class LocationService : Service() {
 
     private var openReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            log( "received open broadcast")
+            log("received open broadcast")
 
             val openActivity = Intent(context, SplashActivity::class.java)
             openActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -125,14 +127,14 @@ class LocationService : Service() {
         requestLocationUpdates()
     }
 
-    private fun requestLocationUpdates(){
+    private fun requestLocationUpdates() {
         log("requestLocationUpdates")
 
-        if(!currentUserOnline){
+        if (!currentUserOnline) {
             log("offline")
             newShowNotification(false)
             stopSelf()
-        }else{
+        } else {
             log("online")
             newShowNotification(true)
         }
@@ -150,7 +152,7 @@ class LocationService : Service() {
 
         client = LocationServices.getFusedLocationProviderClient(this)
 
-        if(callback!=null){
+        if (callback != null) {
             client!!.removeLocationUpdates(callback)
         }
 
@@ -171,7 +173,7 @@ class LocationService : Service() {
 
                     log("updateLocation: ${Gson().toJson(updateLocation)} lat: ${location.latitude} lng: ${location.longitude}")
 
-                    courierRef.update("location",updateLocation)
+                    courierRef.update("location", updateLocation)
 
                     if (mLastLocation == null) {
                         log("mLastLocation null")
@@ -192,14 +194,15 @@ class LocationService : Service() {
                             val hashLocationUpdateWO: HashMap<String, Any> = HashMap()
                             hashLocationUpdateWO["courier.location"] = updateLocation
 
-                            workOrderRef = firestore.collection("workorders").document(Prefs.getString(CURRENT_WORK_ORDER, ""))
+                            workOrderRef = firestore.collection("workorders")
+                                .document(Prefs.getString(CURRENT_WORK_ORDER, ""))
                             workOrderRef!!.update(hashLocationUpdateWO).addOnSuccessListener {
                                 log("Update WO Location")
-                            }.addOnFailureListener{
-                                log("Fail Update WO Location: ${it.message?:"null"}")
+                            }.addOnFailureListener {
+                                log("Fail Update WO Location: ${it.message ?: "null"}")
                             }
                         }
-                    }else {
+                    } else {
                         val distance = location.distanceTo(mLastLocation).toDouble()
                         log("Distance: $distance")
                         if (isBetterLocation(
@@ -237,11 +240,12 @@ class LocationService : Service() {
                                 val hashLocationUpdateWO: HashMap<String, Any> = HashMap()
                                 hashLocationUpdateWO["courier.location"] = updateLocation
 
-                                workOrderRef = firestore.collection("workorders").document(Prefs.getString(CURRENT_WORK_ORDER, ""))
+                                workOrderRef = firestore.collection("workorders")
+                                    .document(Prefs.getString(CURRENT_WORK_ORDER, ""))
                                 workOrderRef!!.update(hashLocationUpdateWO).addOnSuccessListener {
                                     log("Update WO Location")
-                                }.addOnFailureListener{
-                                    log("Fail Update WO Location: ${it.message?:"null"}")
+                                }.addOnFailureListener {
+                                    log("Fail Update WO Location: ${it.message ?: "null"}")
                                 }
                             }
 
@@ -253,8 +257,10 @@ class LocationService : Service() {
             }
         }
 
-        val permission = ContextCompat.checkSelfPermission(this,
-            Manifest.permission.ACCESS_FINE_LOCATION)
+        val permission = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
         if (permission == PackageManager.PERMISSION_GRANTED && client != null) {
             // Request location updates and when an update is
             client!!.requestLocationUpdates(request, callback, null)
@@ -262,32 +268,32 @@ class LocationService : Service() {
     }
 
     private fun isBetterLocation(location: Location, currentBestLocation: Location?): Boolean {
-        if(!BuildConfig.DEBUG)
-        if(location.isFromMockProvider){
+        if (!BuildConfig.DEBUG)
+            if (location.isFromMockProvider) {
                 return false
-        }
+            }
 
         if (currentBestLocation == null) {
             // A new location is always better than no location
-            log( "currentBestLocation")
+            log("currentBestLocation")
             return true
         }
 
         if (!location.hasAccuracy()) {
             // Mock Location
-            log( "!location.hasAccuracy()")
+            log("!location.hasAccuracy()")
             return false
         }
 
         // Check whether the new location fix is newer or older
         val timeDelta = location.time - currentBestLocation.time
-        log( "timeDelta: $timeDelta")
+        log("timeDelta: $timeDelta")
         val isSignificantlyNewer = timeDelta > UPDATE_INTERVAL_IN_MILLISECONDS
-        log( "isSignificantlyNewer: $isSignificantlyNewer")
+        log("isSignificantlyNewer: $isSignificantlyNewer")
         val isSignificantlyOlder = timeDelta < -UPDATE_INTERVAL_IN_MILLISECONDS
-        log( "isSignificantlyOlder: $isSignificantlyOlder")
+        log("isSignificantlyOlder: $isSignificantlyOlder")
         val isNewer = timeDelta > 0
-        log( "isNewer: $isNewer")
+        log("isNewer: $isNewer")
 
         // If it's been more than delta minutes since the current location, use the new location
         // because the user has likely moved
@@ -300,13 +306,13 @@ class LocationService : Service() {
 
         // Check whether the new location fix is more or less accurate
         val accuracyDelta = (location.accuracy - currentBestLocation.accuracy).toInt()
-        log( "accuracyDelta: $accuracyDelta")
+        log("accuracyDelta: $accuracyDelta")
         val isLessAccurate = accuracyDelta > 0
-        log( "isLessAccurate: $isLessAccurate")
+        log("isLessAccurate: $isLessAccurate")
         val isMoreAccurate = accuracyDelta <= 0
-        log( "isMoreAccurate: $isMoreAccurate")
+        log("isMoreAccurate: $isMoreAccurate")
         val isSignificantlyLessAccurate = accuracyDelta > 200
-        log( "isSignificantlyLessAccurate: $isSignificantlyLessAccurate")
+        log("isSignificantlyLessAccurate: $isSignificantlyLessAccurate")
 
         // Check if the old and new location are from the same provider
         val isFromSameProvider = isSameProvider(
@@ -314,10 +320,9 @@ class LocationService : Service() {
             currentBestLocation.provider
         )
 
-        log( "isFromSameProvider: $isFromSameProvider")
+        log("isFromSameProvider: $isFromSameProvider")
 
         log("isMock: ${isMockSettingsON(this)} ${location.isFromMockProvider()}")
-
 
 
         // Determine location quality using a combination of timeliness and accuracy
@@ -330,6 +335,7 @@ class LocationService : Service() {
         }
         return false
     }
+
     /** Checks whether two providers are the same  */
     private fun isSameProvider(provider1: String?, provider2: String?): Boolean {
         return if (provider1 == null) {
@@ -344,35 +350,36 @@ class LocationService : Service() {
     }
 
     override fun onDestroy() {
-        log( "onDestroy")
+        log("onDestroy")
         newShowNotification(false)
         super.onDestroy()
         OPEN = false
         removeLocationListeners()
     }
 
-    private fun removeLocationListeners(){
+    private fun removeLocationListeners() {
         if (client != null && callback != null) {
             client!!.removeLocationUpdates(callback)
         }
     }
 
-    private fun isMockSettingsON( context: Context): Boolean {
-    // returns true if mock location enabled, false if not enabled.
-        return !Settings.Secure.getString(context.getContentResolver(),
-            Settings.Secure.ALLOW_MOCK_LOCATION).equals("0")
+    private fun isMockSettingsON(context: Context): Boolean {
+        // returns true if mock location enabled, false if not enabled.
+        return !Settings.Secure.getString(
+            context.getContentResolver(),
+            Settings.Secure.ALLOW_MOCK_LOCATION
+        ).equals("0")
     }
 
 
-
-    private fun log(message: String){
+    private fun log(message: String) {
         Log.d("LOCATION_SERVICE", message)
     }
 
 
-
-    companion object{
+    companion object {
         var OPEN = false
+
         // LOCATION SETTINGS
         // Sets the desired interval for active location updates. This interval is
         // inexact. You may not receive updates at all if no location sources are available, or
@@ -382,13 +389,14 @@ class LocationService : Service() {
 
         // Sets the min distance for active location updates
         private var LOCATION_DISTANCE = 3f
+
         // Sets the fastest rate for active location updates. This interval is exact, and your
         // application will never receive updates faster than this value.
         private var FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 5L * 1000
 
         fun startLocationServices(applicationContext: Context) {
-            Log.d("LOCATION_SERVICE","startLocationServices")
-            if(!OPEN){
+            Log.d("LOCATION_SERVICE", "startLocationServices")
+            if (!OPEN) {
                 val intentService = Intent(applicationContext, LocationService::class.java)
                 applicationContext.startService(intentService)
             }

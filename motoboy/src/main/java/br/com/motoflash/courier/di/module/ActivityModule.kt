@@ -38,7 +38,7 @@ class ActivityModule(private val mActivity: AppCompatActivity) {
         presenter
 
     @Provides
-        internal fun providMainMvpPresenter(presenter: MainPresenter<MainMvpView>): MainMvpPresenter<MainMvpView> =
+    internal fun providMainMvpPresenter(presenter: MainPresenter<MainMvpView>): MainMvpPresenter<MainMvpView> =
         presenter
 
     @Provides

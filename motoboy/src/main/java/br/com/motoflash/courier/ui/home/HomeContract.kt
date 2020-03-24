@@ -11,6 +11,7 @@ interface HomeMvpPresenter<V :HomeMvpView> : MvpPresenter<V> {
     fun doStartWorkOrder(courierId: String, workOrderId: String, workOrder: WorkOrder)
     fun doStartPoint(courierId: String, workOrderId: String, workOrderPointId: String, workOrder: WorkOrder)
     fun doFinishPoint(courierId: String, workOrderId: String, workOrderPointId: String, workOrder: WorkOrder)
+    fun doCancellWorkOrder(workOrderId: String)
 }
 
 interface HomeMvpView : MvpView {
@@ -22,6 +23,8 @@ interface HomeMvpView : MvpView {
     fun onStartPointFail()
     fun onFinishPoint(lastPoint: Boolean)
     fun onFinishPointFail()
+    fun onCancellWorkOrder()
+    fun onCancellWorkOrderFail()
 }
 
 

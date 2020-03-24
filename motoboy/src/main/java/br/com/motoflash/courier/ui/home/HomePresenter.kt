@@ -2,11 +2,13 @@ package br.com.motoflash.courier.ui.home
 
 import br.com.motoflash.core.data.network.model.WorkOrder
 import br.com.motoflash.core.data.network.model.WorkOrderPoint
+import br.com.motoflash.core.ui.util.RxUtil
 import br.com.motoflash.courier.ui.base.BasePresenter
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
 import com.google.gson.Gson
+import io.reactivex.rxkotlin.plusAssign
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -17,6 +19,7 @@ class HomePresenter<V :HomeMvpView> @Inject
 constructor() : BasePresenter<V>(), HomeMvpPresenter<V> {
     private var removeListenerRegistrationAssign: ListenerRegistration? = null
     private var removeListenerRegistrationExecution: ListenerRegistration? = null
+    private var cancell = false
 
     override fun doSetRunningFalse(courierId: String) {
         firestore
@@ -159,5 +162,21 @@ constructor() : BasePresenter<V>(), HomeMvpPresenter<V> {
         super.onDetach()
         removeListenerRegistrationAssign?.remove()
         removeListenerRegistrationExecution?.remove()
+    }
+
+    override fun doCancellWorkOrder(workOrderId: String) {
+        compositeDisposable += api
+            .doCancellWorkOrder(
+                accessToken = currentTokenId,
+                workOrderId = workOrderId
+            )
+            .compose(RxUtil.applyNetworkSchedulers())
+            .subscribe({
+                cancell = true
+                mvpView?.onCancellWorkOrder()
+            },{
+                log("Error: ${it.message}")
+                mvpView?.onCancellWorkOrderFail()
+            })
     }
 }

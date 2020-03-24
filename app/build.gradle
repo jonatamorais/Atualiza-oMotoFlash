@@ -30,7 +30,6 @@ android {
         targetCompatibility 1.8
     }
 
-
     defaultConfig {
         applicationId "br.com.motoflash.client"
         minSdkVersion 21
@@ -41,7 +40,7 @@ android {
     }
     buildTypes {
         release {
-//            debuggable true
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -52,6 +51,16 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+//            include "x86", "armeabi-v7a", "arm64-v8a", "x86_64"
+            include "x86", "x86_64"
+            universalApk true
+        }
     }
 
     packagingOptions {
@@ -94,6 +103,8 @@ dependencies {
 
     // Kotlin
     implementation "androidx.dynamicanimation:dynamicanimation-ktx:1.0.0-alpha03"
+
+    implementation 'com.google.android:flexbox:2.0.1'
 
     //Injection
     api "com.google.dagger:dagger:2.19"

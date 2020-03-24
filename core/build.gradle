@@ -16,7 +16,6 @@ android {
         targetCompatibility 1.8
     }
 
-
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
@@ -39,10 +38,21 @@ android {
         }
     }
 
+    splits {
+        abi {
+            enable true
+            reset()
+//            include "x86", "armeabi-v7a", "arm64-v8a", "x86_64"
+            include "x86", "x86_64"
+            universalApk true
+        }
+    }
+
     repositories {
         maven { url "https://dl.bintray.com/algolia/maven" }
         maven { url  "http://dl.bintray.com/piasy/maven" }
     }
+
     packagingOptions {
         exclude 'META-INF/ktor-client-serialization.kotlin_module'
         exclude 'META-INF/ktor-http.kotlin_module'
@@ -59,16 +69,17 @@ android {
         exclude 'META-INF/ktor-client-core.kotlin_module'
         exclude 'META-INF/MANIFEST.MF'
     }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     //Firebase
     api 'com.google.firebase:firebase-core:17.2.0'
@@ -111,11 +122,11 @@ dependencies {
     api 'javax.inject:javax.inject:1'
 
     //AndroidX
-    api 'androidx.recyclerview:recyclerview:1.0.0'
+    api 'androidx.recyclerview:recyclerview:1.1.0'
     api 'androidx.cardview:cardview:1.0.0'
 
     //Material
-    api 'com.google.android.material:material:1.0.0'
+    api 'com.google.android.material:material:1.1.0'
 
     //Glide
     api 'com.github.bumptech.glide:glide:4.9.0'

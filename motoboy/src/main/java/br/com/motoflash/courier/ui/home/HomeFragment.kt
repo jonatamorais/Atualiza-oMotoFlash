@@ -5,19 +5,19 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.motoflash.core.data.network.model.WorkOrder
 import br.com.motoflash.core.data.network.model.WorkOrderPoint
 import br.com.motoflash.core.ui.adapter.WorkOrderAdapter
 import br.com.motoflash.core.ui.util.*
-
 import br.com.motoflash.courier.R
 import br.com.motoflash.courier.ui.base.BaseFragment
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.*
 import com.google.maps.android.ui.IconGenerator
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.apache.commons.lang3.StringUtils
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -176,8 +177,25 @@ class HomeFragment : BaseFragment(), HomeMvpView {
             }
         }
 
+        btnCancell.setOnClickListener {
+            showLoading()
+            if (StringUtils.isNotEmpty(workOrder.id!!)) {
+                presenter.doCancellWorkOrder(workOrder.id!!)
+            }
+        }
+
         if (load && context != null)
             boundMap(false, workOrder)
+    }
+
+    override fun onCancellWorkOrder() {
+        hideLoading()
+        "Pedido Iniciado!".showSnack(container, backgroundColor = R.color.colorBlue)
+    }
+
+    override fun onCancellWorkOrderFail() {
+        hideLoading()
+        "Falha ao iniciar pedido".showSnack(container, backgroundColor = R.color.colorRed)
     }
 
     override fun onStartWorkOrder() {
