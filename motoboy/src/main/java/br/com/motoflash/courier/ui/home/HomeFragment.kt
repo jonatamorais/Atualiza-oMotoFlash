@@ -4,9 +4,7 @@ package br.com.motoflash.courier.ui.home
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.icu.util.ValueIterator
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +24,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.maps.android.ui.IconGenerator
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -180,9 +179,9 @@ class HomeFragment : BaseFragment(), HomeMvpView {
 
         btnCancell.visibility = View.VISIBLE
         btnCancell.setOnClickListener {
-            showLoading()
             if (StringUtils.isNotEmpty(workOrder.id!!)) {
-                presenter.doCancellWorkOrder(workOrder.id!!)
+                showLoading()
+                presenter.doCancellWorkOrder(courierId = FirebaseAuth.getInstance().currentUser!!.uid!!, workOrderId =  workOrder.id!!)
             }
         }
 
@@ -192,12 +191,12 @@ class HomeFragment : BaseFragment(), HomeMvpView {
 
     override fun onCancellWorkOrder() {
         hideLoading()
-        "Pedido Iniciado!".showSnack(container, backgroundColor = R.color.colorBlue)
+        "Pedido Cancelado!".showSnack(container, backgroundColor = R.color.colorBlue)
     }
 
     override fun onCancellWorkOrderFail() {
         hideLoading()
-        "Falha ao iniciar pedido".showSnack(container, backgroundColor = R.color.colorRed)
+        "Falha ao cancelar pedido".showSnack(container, backgroundColor = R.color.colorRed)
     }
 
     override fun onStartWorkOrder() {

@@ -412,8 +412,7 @@ class AlertActivity : BaseActivity(), AlertMvpView {
                 mMediaPlayer.stop()
             }
             startLoadRefuse()
-            presenter.doDenieWorkOrder(courierId = FirebaseAuth.getInstance().currentUser!!.uid!!,
-                workOrderId = workOrderId)
+            presenter.doDenieWorkOrder(courierId = FirebaseAuth.getInstance().currentUser!!.uid!!, workOrderId = workOrderId)
         }
     }
 
