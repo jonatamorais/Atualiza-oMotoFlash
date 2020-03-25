@@ -57,25 +57,12 @@
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             app:flexDirection="row"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/mapView"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent">
-
-            <Button
-                android:id="@+id/btnCancell"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/rectangle_cornes_white_borders_red"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:text="Cancelar Entrega"
-                android:textAllCaps="false"
-                android:textColor="@color/colorRed"
-                android:visibility="gone"
-                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/btnAction"
@@ -89,6 +76,20 @@
                 android:text="Criar Entrega"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlue"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/btnCancell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rectangle_cornes_white_borders_red"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Cancelar Entrega"
+                android:textAllCaps="false"
+                android:textColor="@color/colorRed"
                 android:visibility="gone"
                 tools:visibility="visible" />
 

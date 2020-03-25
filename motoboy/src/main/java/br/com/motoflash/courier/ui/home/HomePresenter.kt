@@ -164,20 +164,7 @@ constructor() : BasePresenter<V>(), HomeMvpPresenter<V> {
         removeListenerRegistrationExecution?.remove()
     }
 
-    override fun doCancellWorkOrder(courierId: String, workOrderId: String) {
-        compositeDisposable += api
-            .doDeniedCourier(
-                accessToken = currentTokenId,
-                courierId = courierId,
-                workOrderId = workOrderId
-            )
-            .compose(RxUtil.applyNetworkSchedulers())
-            .subscribe({
-                mvpView?.onCancellWorkOrder()
-            },{
-                log("Error: ${it.message}")
-                mvpView?.onCancellWorkOrderFail()
-            })
-    }
+    override fun doCancellWorkOrder() {
 
+    }
 }

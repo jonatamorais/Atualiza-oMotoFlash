@@ -178,19 +178,10 @@ class HomeFragment : BaseFragment(), HomeMvpView {
             }
         }
 
-
-
-        btnCancell.visibility = View.VISIBLE
+        btnCancell.visibility = View.GONE
         btnCancell.setOnClickListener {
             if (StringUtils.isNotEmpty(workOrder.id!!)) {
                 showLoading()
-                //presenter.doCancellWorkOrder(courierId = FirebaseAuth.getInstance().currentUser!!.uid!!, workOrderId =  workOrder.id!!)
-                presenter.doFinishPoint(
-                    workOrder.courierId!!,
-                    workOrder.id!!,
-                    workOrder.points!!.first { it.status == WorkOrderPoint.Status.CANCELED.name }.id!!,
-                    workOrder
-                )
             }
         }
 
@@ -201,8 +192,6 @@ class HomeFragment : BaseFragment(), HomeMvpView {
     override fun onCancellWorkOrder() {
         hideLoading()
         "Pedido Cancelado!".showSnack(container, backgroundColor = R.color.colorBlue)
-        startActivity(Intent(activity, SplashActivity::class.java))
-        activity?.finish()
     }
 
     override fun onCancellWorkOrderFail() {

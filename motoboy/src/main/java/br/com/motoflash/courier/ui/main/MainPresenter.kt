@@ -5,15 +5,13 @@ import br.com.motoflash.core.data.network.model.Courier
 import br.com.motoflash.core.ui.util.DEVICE_ID
 import br.com.motoflash.courier.ui.base.BasePresenter
 import com.crashlytics.android.Crashlytics
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Source
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 import javax.inject.Inject
 
-class MainPresenter<V :MainMvpView> @Inject
+class MainPresenter<V : MainMvpView> @Inject
 constructor() : BasePresenter<V>(), MainMvpPresenter<V> {
 
     private var removeListener: ListenerRegistration? = null
@@ -25,17 +23,17 @@ constructor() : BasePresenter<V>(), MainMvpPresenter<V> {
         removeListener = firestore
             .collection("couriers")
             .document(user.uid)
-            .addSnapshotListener{ doc, e ->
-                if(e != null){
+            .addSnapshotListener { doc, e ->
+                if (e != null) {
                     Crashlytics.logException(e)
                     log("Error: ${e.message}")
                     logoutUser("Erro ao recuperar informações do usuário")
-                }else{
-                    if(doc != null && doc.exists()){
-                        if (doc.metadata.hasPendingWrites()){
+                } else {
+                    if (doc != null && doc.exists()) {
+                        if (doc.metadata.hasPendingWrites()) {
                             log("local")
                             return@addSnapshotListener
-                        }else{
+                        } else {
                             log("server")
                         }
 
@@ -47,7 +45,7 @@ constructor() : BasePresenter<V>(), MainMvpPresenter<V> {
 
                         val device = getUserDevice(Prefs.getString(DEVICE_ID, ""))
 
-                        if(userDoc.active == true){
+                        if (userDoc.active == true) {
                             firestore
                                 .collection("couriers")
                                 .document(user.uid)
@@ -57,8 +55,7 @@ constructor() : BasePresenter<V>(), MainMvpPresenter<V> {
                                 .addOnCompleteListener {
                                     mvpView?.onGetCourier(userDoc)
                                 }
-                        }
-                        else{
+                        } else {
 //                            log("userDoc.active: ${Gson().toJson(userDoc)}")
 //                            logoutUser("Usuário bloqueado")
                             firestore
@@ -67,7 +64,7 @@ constructor() : BasePresenter<V>(), MainMvpPresenter<V> {
                                 .get(Source.SERVER)
                                 .addOnSuccessListener {
                                     val courier = it.toObject(Courier::class.java)!!
-                                    if(courier.active == true){
+                                    if (courier.active == true) {
                                         firestore
                                             .collection("couriers")
                                             .document(courier.id!!)
@@ -77,9 +74,9 @@ constructor() : BasePresenter<V>(), MainMvpPresenter<V> {
                                             .addOnCompleteListener {
                                                 mvpView?.onGetCourier(courier)
                                             }
-                                    }else{
+                                    } else {
                                         log("userDoc.active: ${Gson().toJson(userDoc)}")
-                            logoutUser("Usuário bloqueado")
+                                        logoutUser("Usuário bloqueado")
                                     }
                                 }
                                 .addOnFailureListener {
@@ -89,7 +86,7 @@ constructor() : BasePresenter<V>(), MainMvpPresenter<V> {
                                 }
                         }
 
-                    }else{
+                    } else {
                         log("doc != null && doc.exists()")
                         logoutUser("Usuário não encontrado")
                     }
@@ -97,7 +94,7 @@ constructor() : BasePresenter<V>(), MainMvpPresenter<V> {
             }
     }
 
-    private fun logoutUser(message: String){
+    private fun logoutUser(message: String) {
         mvpView?.run {
             onLogoutCourier(message)
         }
