@@ -251,8 +251,7 @@ class AlertActivity : BaseActivity(), AlertMvpView {
         if (!mMediaPlayer.isPlaying) {
             mMediaPlayer.start()
         }
-
-
+        
         progressBar.max = 100
 
         if (paused) {
