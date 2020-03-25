@@ -347,6 +347,11 @@ class LoginActivity : BaseActivity(), LoginMvpView {
         finish()
     }
 
+    override fun onBackPressed() {
+        startActivity(Intent(this, SplashActivity::class.java))
+        finish()
+    }
+
     override fun onLoginFailGeneric() {
         hideLoading()
         "Falha ao realizar login, tente novamente".showSnack(container, backgroundColor = R.color.colorRed)
