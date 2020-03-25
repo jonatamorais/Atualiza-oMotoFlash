@@ -145,8 +145,7 @@ class HomeFragment : BaseFragment(), HomeMvpView {
         containerWorkOrder.visibility = View.VISIBLE
 
         btnAction.visibility = View.VISIBLE
-        if (workOrder.points!!.filter { it.status != WorkOrderPoint.Status.PENDING.name }
-                .isEmpty() && workOrder.status == WorkOrder.Status.ASSIGNED.name) {
+        if (workOrder.points!!.filter { it.status != WorkOrderPoint.Status.PENDING.name }.isEmpty() && workOrder.status == WorkOrder.Status.ASSIGNED.name) {
             btnAction.text = "Inicie o pedido!"
             btnAction.setOnClickListener {
                 showLoading()
@@ -179,11 +178,19 @@ class HomeFragment : BaseFragment(), HomeMvpView {
             }
         }
 
+
+
         btnCancell.visibility = View.VISIBLE
         btnCancell.setOnClickListener {
             if (StringUtils.isNotEmpty(workOrder.id!!)) {
                 showLoading()
-                presenter.doCancellWorkOrder(courierId = FirebaseAuth.getInstance().currentUser!!.uid!!, workOrderId =  workOrder.id!!)
+                //presenter.doCancellWorkOrder(courierId = FirebaseAuth.getInstance().currentUser!!.uid!!, workOrderId =  workOrder.id!!)
+                presenter.doFinishPoint(
+                    workOrder.courierId!!,
+                    workOrder.id!!,
+                    workOrder.points!!.first { it.status == WorkOrderPoint.Status.CANCELED.name }.id!!,
+                    workOrder
+                )
             }
         }
 
@@ -194,6 +201,8 @@ class HomeFragment : BaseFragment(), HomeMvpView {
     override fun onCancellWorkOrder() {
         hideLoading()
         "Pedido Cancelado!".showSnack(container, backgroundColor = R.color.colorBlue)
+        startActivity(Intent(activity, SplashActivity::class.java))
+        activity?.finish()
     }
 
     override fun onCancellWorkOrderFail() {

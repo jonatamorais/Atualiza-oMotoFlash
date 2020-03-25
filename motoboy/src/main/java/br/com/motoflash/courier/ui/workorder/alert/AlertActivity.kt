@@ -55,11 +55,11 @@ class AlertActivity : BaseActivity(), AlertMvpView {
         intent.getStringExtra(PARAM_ACCEPTTIME).toLong() / 1000
     }
 
-    val  distance by lazy{
+    val distance by lazy {
         intent.getStringExtra(PARAM_DISTANCE).toDouble()
     }
 
-   private var accept = false
+    private var accept = false
     private var denie = false
 
     val workOrderId by lazy {
@@ -134,10 +134,10 @@ class AlertActivity : BaseActivity(), AlertMvpView {
             googleMap.setOnMapLoadedCallback {
                 log("setOnMapLoadedCallback")
 //                loaderMaps?.visibility = View.GONE
-                Timer("delay").schedule(1000L){
+                Timer("delay").schedule(1000L) {
                     runOnUiThread {
-                        if(workOrder!=null)
-                        boundMap(workOrder!!)
+                        if (workOrder != null)
+                            boundMap(workOrder!!)
                     }
                 }
             }
@@ -156,7 +156,7 @@ class AlertActivity : BaseActivity(), AlertMvpView {
 
             if (valueAnimator.animatedFraction >= 1) {
                 containerProgress.visibility = View.GONE
-                if(!accept && !denie){
+                if (!accept && !denie) {
 //                    startLoadAccept()
 //                    showToast("Os Ignorada")
 //                    presenter.doDenieWorkOrder(
@@ -207,7 +207,7 @@ class AlertActivity : BaseActivity(), AlertMvpView {
     }
 
     override fun onAssignWorkOrderFail() {
-        if(!accept){
+        if (!accept) {
             paused = false
             valueAnimator.resume()
             showToast("Falha ao aceitar a OS")
@@ -236,10 +236,10 @@ class AlertActivity : BaseActivity(), AlertMvpView {
     private fun loadWorkOrder(workOrder: WorkOrder) {
         if (workOrder.status != WorkOrder.Status.PENDING.name) {
             mMediaPlayer.stop()
-            if(workOrder.courierId != Prefs.getString(COURIER_ID, "")) {
+            if (workOrder.courierId != Prefs.getString(COURIER_ID, "")) {
                 showToast("OS não está mais disponível")
                 finish()
-            }else{
+            } else {
                 Prefs.putString(CURRENT_WORK_ORDER, workOrder.id!!)
                 accept = true
 //                showToast("OS aceita!")
@@ -255,17 +255,18 @@ class AlertActivity : BaseActivity(), AlertMvpView {
 
         progressBar.max = 100
 
-        if(paused){
+        if (paused) {
             paused = true
             valueAnimator.resume()
-        }else{
+        } else {
             valueAnimator.start()
         }
 
         txtPrice.visibility = View.GONE
         if (workOrder.quotation?.price != null) {
             txtPrice.visibility = View.GONE // updated from VISIBLE to GONE date 21/2020
-            txtPrice.text = NumberFormat.getCurrencyInstance().format(workOrder.quotation?.price ?: 0.0)
+            txtPrice.text =
+                NumberFormat.getCurrencyInstance().format(workOrder.quotation?.price ?: 0.0)
         }
         txtBonus.visibility = View.GONE
         if (workOrder.bonus != null) {
@@ -286,8 +287,8 @@ class AlertActivity : BaseActivity(), AlertMvpView {
         txtDuration.visibility = View.GONE
         if (workOrder.quotation?.duration != null) {
             txtDuration.visibility = View.VISIBLE
-            var time = (workOrder.quotation?.duration!!/60).toInt()
-            if(time < 0 )
+            var time = (workOrder.quotation?.duration!! / 60).toInt()
+            if (time < 0)
                 time = 1
             txtDuration.text = "${time}min"
         }
@@ -295,10 +296,12 @@ class AlertActivity : BaseActivity(), AlertMvpView {
         txtDistance.visibility = View.GONE
         if (workOrder.quotation?.distance != null) {
             txtDistance.visibility = View.VISIBLE
-            txtDistance.text = String.format("%.2fkm", (workOrder.quotation?.distance!!/1000).toFloat())
+            txtDistance.text =
+                String.format("%.2fkm", (workOrder.quotation?.distance!! / 1000).toFloat())
         }
 
-        txtDistanceToFirstPoint.text = String.format("Distância até o ponto: %.2fkm", distance.toFloat())
+        txtDistanceToFirstPoint.text =
+            String.format("Distância até o ponto: %.2fkm", distance.toFloat())
 //        boundMap(workOrder)
     }
 
@@ -344,7 +347,7 @@ class AlertActivity : BaseActivity(), AlertMvpView {
     private fun clickAccept() {
         runOnUiThread {
 
-                mMediaPlayer.stop()
+            mMediaPlayer.stop()
             presenter.doAssignWorkOrder(
                 courierId = FirebaseAuth.getInstance().uid!!,
                 workOrderId = workOrderId
@@ -398,7 +401,7 @@ class AlertActivity : BaseActivity(), AlertMvpView {
 //            courierId = FirebaseAuth.getInstance().currentUser!!.uid!!,
 //            workOrderId = workOrderId
 //        )
-        if(paused){
+        if (paused) {
             paused = true
             valueAnimator.resume()
         }
@@ -412,7 +415,10 @@ class AlertActivity : BaseActivity(), AlertMvpView {
                 mMediaPlayer.stop()
             }
             startLoadRefuse()
-            presenter.doDenieWorkOrder(courierId = FirebaseAuth.getInstance().currentUser!!.uid!!, workOrderId = workOrderId)
+            presenter.doDenieWorkOrder(
+                courierId = FirebaseAuth.getInstance().currentUser!!.uid!!,
+                workOrderId = workOrderId
+            )
         }
     }
 
@@ -456,7 +462,12 @@ class AlertActivity : BaseActivity(), AlertMvpView {
                         )
                     )
                     .anchor(iconFactory.anchorU, iconFactory.anchorV)
-                    .position(LatLng(point.address!!.location!!.geopoint!!.latitude ?: 0.0, point.address!!.location!!.geopoint!!.longitude ?: 0.0))
+                    .position(
+                        LatLng(
+                            point.address!!.location!!.geopoint!!.latitude ?: 0.0,
+                            point.address!!.location!!.geopoint!!.longitude ?: 0.0
+                        )
+                    )
 
 
                 googleMap.addMarker(marker)
@@ -484,12 +495,17 @@ class AlertActivity : BaseActivity(), AlertMvpView {
         presenter.onDetach()
     }
 
-    companion object{
+    companion object {
         const val PARAM_WORKORDER_ID = "PARAM_WORKORDER_ID"
         const val PARAM_ACCEPTTIME = "PARAM_ACCEPTTIME"
         const val PARAM_DISTANCE = "PARAM_DISTANCE"
 
-        fun start(context: Context, workOrderId: String, acceptTime: String, distance:String) : Intent{
+        fun start(
+            context: Context,
+            workOrderId: String,
+            acceptTime: String,
+            distance: String
+        ): Intent {
             val intent = Intent(context, AlertActivity::class.java)
             intent.putExtra(PARAM_WORKORDER_ID, workOrderId)
             intent.putExtra(PARAM_ACCEPTTIME, acceptTime)
