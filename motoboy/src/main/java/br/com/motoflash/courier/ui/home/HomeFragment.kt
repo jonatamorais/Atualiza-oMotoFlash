@@ -2,6 +2,7 @@ package br.com.motoflash.courier.ui.home
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
@@ -19,6 +20,7 @@ import br.com.motoflash.core.ui.adapter.WorkOrderAdapter
 import br.com.motoflash.core.ui.util.*
 import br.com.motoflash.courier.R
 import br.com.motoflash.courier.ui.base.BaseFragment
+import br.com.motoflash.courier.ui.splash.SplashActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
